@@ -35,6 +35,26 @@ function main() {
             }
         }
     };
+    addNumbersToDisplay(elementIds);
+    addOperatorToDisplay(elementIds);
+}
+
+function addNumbersToDisplay(elementIds) {
+    numberIds = Object.values(elementIds.buttons.numbers);
+    numberIds.forEach(numberId => {
+        numberId.addEventListener("click", () => {
+            elementIds.display.textContent += numberId.textContent;
+        });
+    });
+}
+
+function addOperatorToDisplay(elementIds) {
+    operatorIds = Object.values(elementIds.buttons.operators).filter(item => item !== elementIds.buttons.operators.equals);
+    operatorIds.forEach(operatorId => {
+        operatorId.addEventListener("click", () => {
+            elementIds.display.textContent += operatorId.textContent;
+        });
+    });
 }
 
 function operate(operator, operand1, operand2) {
@@ -67,3 +87,5 @@ function multiply(operator1, operator2){
 function divide(operator1, operator2){
     return operator1 / operator2;
 }
+
+main();
