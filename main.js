@@ -1,41 +1,41 @@
-let arithmeticOperation = {
-    operator:null,
-    operand1:null,
-    operand2:null
-};
+function main() {
+    let arithmeticOperation = {
+        operator:null,
+        operand1:null,
+        operand2:null
+    };
 
-let elementIds = {
-    display: document.getElementById("display"),
-    buttons: {
-        numbers: {
-            zero: document.getElementById("zero"),
-            one: document.getElementById("one"),
-            two: document.getElementById("two"),
-            three: document.getElementById("three"),
-            four: document.getElementById("four"),
-            five: document.getElementById("five"),
-            six: document.getElementById("six"),
-            seven: document.getElementById("seven"),
-            eight: document.getElementById("eight"),
-            nine: document.getElementById("nine"),
-            decimal: document.getElementById("decimal")
-        },
-        utility: {
-            clearAll: document.getElementById("clear-all"),
-            clear: document.getElementById("clear"),
-            positiveNegative: document.getElementById("positive-negative")
-        },
-        operators: {
-            equals: document.getElementById("equals"),
-            add: document.getElementById("add"),
-            subtract: document.getElementById("subtract"),
-            multiply: document.getElementById("multiply"),
-            divide: document.getElementById("divide")
+    const elementIds = {
+        display: document.getElementById("display"),
+        buttons: {
+            numbers: {
+                zero: document.getElementById("zero"),
+                one: document.getElementById("one"),
+                two: document.getElementById("two"),
+                three: document.getElementById("three"),
+                four: document.getElementById("four"),
+                five: document.getElementById("five"),
+                six: document.getElementById("six"),
+                seven: document.getElementById("seven"),
+                eight: document.getElementById("eight"),
+                nine: document.getElementById("nine"),
+                decimal: document.getElementById("decimal")
+            },
+            utility: {
+                clearAll: document.getElementById("clear-all"),
+                clear: document.getElementById("clear"),
+                positiveNegative: document.getElementById("positive-negative")
+            },
+            operators: {
+                equals: document.getElementById("equals"),
+                add: document.getElementById("add"),
+                subtract: document.getElementById("subtract"),
+                multiply: document.getElementById("multiply"),
+                divide: document.getElementById("divide")
+            }
         }
-    }
-};
-
-
+    };
+}
 
 function operate(operator, operand1, operand2) {
     if (operator === '+') {
