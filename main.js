@@ -1,7 +1,7 @@
-let calcDisplay = {
+let arithmeticOperation = {
     operator:null,
     operand1:null,
-    operand2:null,
+    operand2:null
 };
 
 let elementIds = {
