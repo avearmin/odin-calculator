@@ -1,3 +1,11 @@
+let calcDisplay = {
+    operator:null,
+    operand1:null,
+    operand2:null,
+};
+
+
+
 function operate(operator, operand1, operand2) {
     if (operator === '+') {
         return add(operand1, operand2);
