@@ -9,17 +9,17 @@ function main() {
         display: document.getElementById("display"),
         buttons: {
             numbers: {
-                zero: document.getElementById("zero"),
-                one: document.getElementById("one"),
-                two: document.getElementById("two"),
-                three: document.getElementById("three"),
-                four: document.getElementById("four"),
-                five: document.getElementById("five"),
-                six: document.getElementById("six"),
-                seven: document.getElementById("seven"),
-                eight: document.getElementById("eight"),
-                nine: document.getElementById("nine"),
-                decimal: document.getElementById("decimal")
+                zero: {id: document.getElementById("zero"), value: "0"},
+                one: {id: document.getElementById("one"), value: "1"},
+                two: {id: document.getElementById("two"), value: "2"},
+                three: {id: document.getElementById("three"), value: "3"},
+                four: {id: document.getElementById("four"), value: "4"},
+                five: {id: document.getElementById("five"), value: "5"},
+                six: {id: document.getElementById("six"), value: "6"},
+                seven: {id: document.getElementById("seven"), value: "7"},
+                eight: {id: document.getElementById("eight"), value "8"},
+                nine: {id: document.getElementById("nine"), value: "9"},
+                decimal: {id: document.getElementById("decimal"), value: "."}
             },
             utility: {
                 clearAll: document.getElementById("clear-all"),
@@ -27,11 +27,11 @@ function main() {
                 positiveNegative: document.getElementById("positive-negative")
             },
             operators: {
-                equals: document.getElementById("equals"),
-                add: document.getElementById("add"),
-                subtract: document.getElementById("subtract"),
-                multiply: document.getElementById("multiply"),
-                divide: document.getElementById("divide")
+                equals: {id: document.getElementById("equals"), value: "="},
+                add: {id: document.getElementById("add"), value: "+"},
+                subtract: {id: document.getElementById("subtract"), value: "-"},
+                multiply: {id: document.getElementById("multiply"), value: "*"},
+                divide: {id: document.getElementById("divide"), value: "/"}
             }
         }
     };
