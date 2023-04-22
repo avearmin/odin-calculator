@@ -1,15 +1,28 @@
 function main() {
     let arithmeticOperation = {
         operator:null,
-        operand1:null,
-        operand2:null,
+        operand1:"",
+        operand2:"",
         setOperatorOnClick: function(elementIds) {
-	    operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
+	    let operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
             operators.forEach(operator => {
                 operator.id.addEventListener("click", () => {
 		    this.operator = operator.value;
         	});
     	    });
+	},
+	setOperandOnClick: function(elementIds) {
+	    let nums = Object.values(elementIds.buttons.numbers);
+	    nums.forEach(num => {
+		num.id.addEventListener("click", () => {
+		    if (this.operator === null) {
+		        this.operand1 += num.value;
+		    }
+		    else {
+			this.operand2 += num.value;
+		    }
+        	});
+	    });
 	}
     };
 
@@ -44,6 +57,7 @@ function main() {
         }
     };
     arithmeticOperation.setOperatorOnClick(elementIds);
+    arithmeticOperation.setOperandOnClick(elementIds);
 }
 
 //function addNumbersToDisplay(elementIds) {
