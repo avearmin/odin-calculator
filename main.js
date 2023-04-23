@@ -48,6 +48,7 @@ function main() {
     };
     setOperatorOnClick(elementIds, arithmeticOperation);
     setOperandOnClick(elementIds, arithmeticOperation);
+    addNumbersToDisplay(elementIds);
 }
 
 function setOperatorOnClick(elementIds, arithmeticOperation) {
@@ -68,14 +69,14 @@ function setOperandOnClick(elementIds, arithmeticOperation) {
     });
 }
 
-//function addNumbersToDisplay(elementIds) {
-//    numberIds = Object.values(elementIds.buttons.numbers);
-//    numberIds.forEach(numberId => {
-//        numberId.addEventListener("click", () => {
-//            elementIds.display.textContent += numberId.textContent;
-//        });
-//    });
-//}
+function addNumbersToDisplay(elementIds) {
+    numbers = Object.values(elementIds.buttons.numbers);
+    numbers.forEach(number => {
+        number.id.addEventListener("click", () => {
+	    elementIds.display.textContent += number.value;
+        });
+    });
+}
 
 //function addOperatorToDisplay(elementIds) {
 //    operatorIds = Object.values(elementIds.buttons.operators).filter(item => item !== elementIds.buttons.operators.equals);
