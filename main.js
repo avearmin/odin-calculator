@@ -3,26 +3,16 @@ function main() {
         operator:null,
         operand1:"",
         operand2:"",
-        setOperatorOnClick: function(elementIds) {
-	    let operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
-            operators.forEach(operator => {
-                operator.id.addEventListener("click", () => {
-		    this.operator = operator.value;
-        	});
-    	    });
+        setOperator: function(value) {
+	    this.operator = value;
 	},
-	setOperandOnClick: function(elementIds) {
-	    let nums = Object.values(elementIds.buttons.numbers);
-	    nums.forEach(num => {
-		num.id.addEventListener("click", () => {
-		    if (this.operator === null) {
-		        this.operand1 += num.value;
-		    }
-		    else {
-			this.operand2 += num.value;
-		    }
-        	});
-	    });
+	addCharToOperand: function(char) {
+	    if (this.operator === null) {
+		this.operand1 += char;
+	    }
+	    else {
+		this.operand2 += char;
+	    }
 	}
     };
 
@@ -56,8 +46,26 @@ function main() {
             }
         }
     };
-    arithmeticOperation.setOperatorOnClick(elementIds);
-    arithmeticOperation.setOperandOnClick(elementIds);
+    setOperatorOnClick(elementIds, arithmeticOperation);
+    setOperandOnClick(elementIds, arithmeticOperation);
+}
+
+function setOperatorOnClick(elementIds, arithmeticOperation) {
+    let operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
+    operators.forEach(operator => {
+        operator.id.addEventListener("click", () => {
+	    arithmeticOperation.setOperator(operator.value);
+	});
+    });
+}
+
+function setOperandOnClick(elementIds, arithmeticOperation) {
+    let nums = Object.values(elementIds.buttons.numbers);
+    nums.forEach(num => {
+	num.id.addEventListener("click", () => {
+	    arithmeticOperation.addCharToOperand(num.value);
+        });
+    });
 }
 
 //function addNumbersToDisplay(elementIds) {
