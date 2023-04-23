@@ -49,6 +49,8 @@ function main() {
     setOperatorOnClick(elementIds, arithmeticOperation);
     setOperandOnClick(elementIds, arithmeticOperation);
     addNumbersToDisplay(elementIds);
+    clearDisplayOnOperatorClick(elementIds, arithmeticOperation);
+    addOperationResultToDisplay(elementIds, arithmeticOperation);
 }
 
 function setOperatorOnClick(elementIds, arithmeticOperation) {
@@ -76,6 +78,31 @@ function addNumbersToDisplay(elementIds) {
 	    elementIds.display.textContent += number.value;
         });
     });
+}
+
+function clearDisplayOnOperatorClick(elementIds, arithmeticOperation) {
+    operators = Object.values(elementIds.buttons.operators);
+    operators.forEach(operator => {
+        operator.id.addEventListener("click", () => {
+            if (arithmeticOperation.operator === null && operator.value != "=") {
+		elementIds.display.textContent = "";
+	    }
+	    else if (arithmeticOperation.operator != null) {
+		elementIds.display.textContent = "";
+	    }
+        });
+    });
+}
+
+function addOperationResultToDisplay(elementIds, arithmeticOperation) {
+    operators = Object.values(elementIds.buttons.operators);
+    operators.forEach(operator => {
+        operator.id.addEventListener("click", () => {
+            if (arithmeticOperation.operator != null && arithmeticOperation.operand1 != "" && arithmeticOperation.operand2 != "") {
+	        elementIds.display.textContent = operate(arithmeticOperation.operator, +arithmeticOperation.operand1, +arithmeticOperation.operand2);
+	    }
+        });
+    });    
 }
 
 //function addOperatorToDisplay(elementIds) {
