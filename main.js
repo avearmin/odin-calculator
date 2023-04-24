@@ -6,6 +6,12 @@ function main() {
         setOperator: function(value) {
 	    this.operator = value;
 	},
+	setOperand1: function(value) {
+	    this.operand1 = value;
+	},
+	setOperand2: function(value) {
+	    this.operand2 = value;
+	},
 	addCharToOperand: function(char) {
 	    if (this.operator === null) {
 		this.operand1 += char;
@@ -13,6 +19,11 @@ function main() {
 	    else {
 		this.operand2 += char;
 	    }
+	},
+	clearAll: function() {
+	    this.setOperator(null);
+	    this.setOperand1("");
+	    this.setOperand2("");
 	}
     };
 
@@ -46,33 +57,28 @@ function main() {
             }
         }
     };
+    clearDisplayOnOperatorClick(elementIds, arithmeticOperation);
+    addNumbersToDisplay(elementIds);
+    addOperatorToDisplay(elementIds, arithmeticOperation);
     setOperatorOnClick(elementIds, arithmeticOperation);
     setOperandOnClick(elementIds, arithmeticOperation);
-    addNumbersToDisplay(elementIds);
-    clearDisplayOnOperatorClick(elementIds, arithmeticOperation);
-    addOperationResultToDisplay(elementIds, arithmeticOperation);
+    readyNextOperationDisplay(elementIds, arithmeticOperation);
+    readyNextOperationLogic(elementIds, arithmeticOperation);
 }
 
-function setOperatorOnClick(elementIds, arithmeticOperation) {
-    let operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
+function clearDisplayOnOperatorClick(elementIds, arithmeticOperation) {
+    const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	    arithmeticOperation.setOperator(operator.value);
-	});
-    });
-}
-
-function setOperandOnClick(elementIds, arithmeticOperation) {
-    let nums = Object.values(elementIds.buttons.numbers);
-    nums.forEach(num => {
-	num.id.addEventListener("click", () => {
-	    arithmeticOperation.addCharToOperand(num.value);
+	    if (arithmeticOperation.operator != null) {
+		elementIds.display.textContent = "";
+	    }
         });
     });
 }
 
 function addNumbersToDisplay(elementIds) {
-    numbers = Object.values(elementIds.buttons.numbers);
+    const numbers = Object.values(elementIds.buttons.numbers);
     numbers.forEach(number => {
         number.id.addEventListener("click", () => {
 	    elementIds.display.textContent += number.value;
@@ -80,39 +86,67 @@ function addNumbersToDisplay(elementIds) {
     });
 }
 
-function clearDisplayOnOperatorClick(elementIds, arithmeticOperation) {
-    operators = Object.values(elementIds.buttons.operators);
+function addOperatorToDisplay(elementIds, arithmeticOperation) {
+    operators = Object.values(elementIds.buttons.operators).filter(item => item !== elementIds.buttons.operators.equals);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-            if (arithmeticOperation.operator === null && operator.value != "=") {
-		elementIds.display.textContent = "";
-	    }
-	    else if (arithmeticOperation.operator != null) {
-		elementIds.display.textContent = "";
+	    if (arithmeticOperation.operand1 != "" && arithmeticOperation.operator === null) {
+	        elementIds.display.textContent += operator.value;
 	    }
         });
     });
 }
 
-function addOperationResultToDisplay(elementIds, arithmeticOperation) {
-    operators = Object.values(elementIds.buttons.operators);
+function setOperatorOnClick(elementIds, arithmeticOperation) {
+    const operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
+    operators.forEach(operator => {
+        operator.id.addEventListener("click", () => {
+	    if (arithmeticOperation.operand1 != "" && arithmeticOperation.operator === null) {
+		arithmeticOperation.setOperator(operator.value);
+	    }
+	});
+    });
+}
+
+function setOperandOnClick(elementIds, arithmeticOperation) {
+    const nums = Object.values(elementIds.buttons.numbers);
+    nums.forEach(num => {
+	num.id.addEventListener("click", () => {
+	    arithmeticOperation.addCharToOperand(num.value);
+        });
+    });
+}
+
+function readyNextOperationDisplay(elementIds, arithmeticOperation) {
+    const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
             if (arithmeticOperation.operator != null && arithmeticOperation.operand1 != "" && arithmeticOperation.operand2 != "") {
 	        elementIds.display.textContent = operate(arithmeticOperation.operator, +arithmeticOperation.operand1, +arithmeticOperation.operand2);
+		if (['+','-','*','/'].includes(operator.value)) {
+		    elementIds.display.textContent += operator.value;
+		}
 	    }
         });
     });    
 }
 
-//function addOperatorToDisplay(elementIds) {
-//    operatorIds = Object.values(elementIds.buttons.operators).filter(item => item !== elementIds.buttons.operators.equals);
-//    operatorIds.forEach(operatorId => {
-//        operatorId.addEventListener("click", () => {
-//            elementIds.display.textContent += operatorId.textContent;
-//        });
-//    });
-//}
+function readyNextOperationLogic(elementIds, arithmeticOperation) {
+    let result;
+    const operators = Object.values(elementIds.buttons.operators);
+    operators.forEach(operator => {
+        operator.id.addEventListener("click", () => {
+            if (arithmeticOperation.operator != null && arithmeticOperation.operand1 != "" && arithmeticOperation.operand2 != "") {
+	        result = operate(arithmeticOperation.operator, +arithmeticOperation.operand1, +arithmeticOperation.operand2).toString();
+		arithmeticOperation.clearAll();
+		arithmeticOperation.setOperand1(result);
+		if (['+','-','*','/'].includes(operator.value)) {
+		    arithmeticOperation.setOperator(operator.value);
+		}
+	    }
+        });
+    });    
+}
 
 function operate(operator, operand1, operand2) {
     if (operator === '+') {
