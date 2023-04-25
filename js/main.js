@@ -1,31 +1,5 @@
 function main() {
-    let arithmeticOperation = {
-        operator:null,
-        operand1:"",
-        operand2:"",
-        setOperator: function(value) {
-	    this.operator = value;
-	},
-	setOperand1: function(value) {
-	    this.operand1 = value;
-	},
-	setOperand2: function(value) {
-	    this.operand2 = value;
-	},
-	addCharToOperand: function(char) {
-	    if (this.operator === null) {
-		this.operand1 += char;
-	    }
-	    else {
-		this.operand2 += char;
-	    }
-	},
-	clearAll: function() {
-	    this.setOperator(null);
-	    this.setOperand1("");
-	    this.setOperand2("");
-	}
-    };
+    let arithmeticOperation = new ArithmeticOperation();
 
     const elementIds = {
         display: document.getElementById("display"),
@@ -90,7 +64,7 @@ function addOperatorToDisplay(elementIds, arithmeticOperation) {
     operators = Object.values(elementIds.buttons.operators).filter(item => item !== elementIds.buttons.operators.equals);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	    if (arithmeticOperation.operand1 != "" && arithmeticOperation.operator === null) {
+	    if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === null) {
 	        elementIds.display.textContent += operator.value;
 	    }
         });
@@ -101,7 +75,7 @@ function setOperatorOnClick(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	    if (arithmeticOperation.operand1 != "" && arithmeticOperation.operator === null) {
+	    if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === null) {
 		arithmeticOperation.setOperator(operator.value);
 	    }
 	});
@@ -121,8 +95,8 @@ function readyNextOperationDisplay(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-            if (arithmeticOperation.operator != null && arithmeticOperation.operand1 != "" && arithmeticOperation.operand2 != "") {
-	        elementIds.display.textContent = operate(arithmeticOperation.operator, +arithmeticOperation.operand1, +arithmeticOperation.operand2);
+            if (arithmeticOperation.getOperator() != null && arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperand2() != "") {
+	        elementIds.display.textContent = arithmeticOperation.operate();
 		if (['+','-','*','/'].includes(operator.value)) {
 		    elementIds.display.textContent += operator.value;
 		}
@@ -136,8 +110,8 @@ function readyNextOperationLogic(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-            if (arithmeticOperation.operator != null && arithmeticOperation.operand1 != "" && arithmeticOperation.operand2 != "") {
-	        result = operate(arithmeticOperation.operator, +arithmeticOperation.operand1, +arithmeticOperation.operand2).toString();
+            if (arithmeticOperation.getOperator() != null && arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperand2() != "") {
+	        result = arithmeticOperation.operate().toString();
 		arithmeticOperation.clearAll();
 		arithmeticOperation.setOperand1(result);
 		if (['+','-','*','/'].includes(operator.value)) {
@@ -146,37 +120,6 @@ function readyNextOperationLogic(elementIds, arithmeticOperation) {
 	    }
         });
     });    
-}
-
-function operate(operator, operand1, operand2) {
-    if (operator === '+') {
-        return add(operand1, operand2);
-    }
-    else if (operator === '-') {
-        return subtract(operand1, operand2);
-    }
-    else if (operator === '*') {
-        return multiply(operand1, operand2);
-    }
-    else if (operator === '/') {
-        return divide(operand1, operand2);
-    }
-}
-
-function add(operator1, operator2){
-    return operator1 + operator2;
-}
-
-function subtract(operator1, operator2){
-    return operator1 - operator2;
-}
-
-function multiply(operator1, operator2){
-    return operator1 * operator2;
-}
-
-function divide(operator1, operator2){
-    return operator1 / operator2;
 }
 
 main();
