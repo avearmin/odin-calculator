@@ -2,7 +2,7 @@ class ArithmeticOperation {
     #operator;
     #operand1;
     #operand2;
-    constructor(operator = null, operand1 = "", operand2 = "") {
+    constructor(operator = "", operand1 = "", operand2 = "") {
         this.#operator = operator;
         this.#operand1 = operand1;
         this.#operand2 = operand2;
@@ -21,7 +21,7 @@ class ArithmeticOperation {
 	}
 
     addCharToOperand(char) {
-	    if (this.#operator === null) {
+	    if (this.#operator === "") {
 		    this.#operand1 += char;
 	    }
 	    else {
@@ -50,7 +50,7 @@ class ArithmeticOperation {
     }
 
 	clearAll() {
-	    this.setOperator(null);
+	    this.setOperator("");
 	    this.setOperand1("");
 	    this.setOperand2("");
 	}
