@@ -37,6 +37,24 @@ class ArithmeticOperation {
         this.#operand2 = this.#operand2.slice(0, -1);
     }
 
+    toggleNegativeOperand1() {
+        if (this.#operand1.charAt(0) === "-") {
+            this.#operand1 = this.#operand1.slice(1);
+        }
+        else {
+            this.#operand1 = "-" + this.#operand1;
+        }
+    }
+
+    toggleNegativeOperand2() {
+        if (this.#operand2.charAt(0) === "-") {
+            this.#operand2 = this.#operand2.slice(1);
+        }
+        else {
+            this.#operand2 = "-" + this.#operand2;
+        }
+    }
+
     getOperator() {
         return this.#operator;
     }

@@ -34,6 +34,7 @@ function main() {
     clearLogicOnClearAllClick(elementIds, arithmeticOperation);
     setOperatorOnClick(elementIds, arithmeticOperation);
     setOperandOnClick(elementIds, arithmeticOperation);
+    toggleNegativeOnClick(elementIds, arithmeticOperation)
     removeCharFromOperation(elementIds, arithmeticOperation);
     readyNextOperationLogic(elementIds, arithmeticOperation);
     updateDisplay(elementIds, arithmeticOperation);
@@ -62,6 +63,17 @@ function setOperandOnClick(elementIds, arithmeticOperation) {
 	    num.id.addEventListener("click", () => {
 	        arithmeticOperation.addCharToOperand(num.value);
         });
+    });
+}
+
+function toggleNegativeOnClick(elementIds, arithmeticOperation) {
+    elementIds.buttons.utility.positiveNegative.addEventListener("click", () => {
+        if (arithmeticOperation.getOperand2() != "") {
+            arithmeticOperation.toggleNegativeOperand2();
+        }
+        else if (arithmeticOperation.getOperand1() != "") {
+            arithmeticOperation.toggleNegativeOperand1();
+        }
     });
 }
 
