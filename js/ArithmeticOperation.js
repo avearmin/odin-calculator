@@ -67,6 +67,22 @@ class ArithmeticOperation {
         return this.#operand2;
     }
 
+    hasOperator() {
+        return this.getOperator() != "";
+    }
+
+    hasOperand1() {
+        return this.getOperand1() != "" && this.getOperand1 != "-";
+    }
+
+    hasOperand2() {
+        return this.getOperand2() != "" && this.getOperand2 != "-";
+    }
+
+    hasAll() {
+        return this.hasOperator() && this.hasOperand1() && this.hasOperand2();
+    }
+
 	clearAll() {
 	    this.setOperator("");
 	    this.setOperand1("");

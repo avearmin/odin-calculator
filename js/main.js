@@ -50,7 +50,7 @@ function setOperatorOnClick(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	        if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === "") {
+	        if (arithmeticOperation.hasOperand1() && !arithmeticOperation.hasOperator()) {
 		        arithmeticOperation.setOperator(operator.value);
 	        }
 	    });
@@ -68,10 +68,10 @@ function setOperandOnClick(elementIds, arithmeticOperation) {
 
 function toggleNegativeOnClick(elementIds, arithmeticOperation) {
     elementIds.buttons.utility.positiveNegative.addEventListener("click", () => {
-        if (arithmeticOperation.getOperand2() != "") {
+        if (arithmeticOperation.hasOperand2()) {
             arithmeticOperation.toggleNegativeOperand2();
         }
-        else if (arithmeticOperation.getOperand1() != "") {
+        else if (arithmeticOperation.hasOperand1()) {
             arithmeticOperation.toggleNegativeOperand1();
         }
     });
@@ -79,10 +79,10 @@ function toggleNegativeOnClick(elementIds, arithmeticOperation) {
 
 function removeCharFromOperation(elementIds, arithmeticOperation) {
     elementIds.buttons.utility.clear.addEventListener("click", () => {
-        if (arithmeticOperation.getOperand2() != "") {
+        if (arithmeticOperation.hasOperand2()) {
             arithmeticOperation.removeCharFromOperand2();
         }
-        else if (arithmeticOperation.getOperator() != "") {
+        else if (arithmeticOperation.hasOperator()) {
             arithmeticOperation.setOperator("");
         }
         else {
@@ -96,7 +96,7 @@ function readyNextOperationLogic(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-            if (arithmeticOperation.getOperator() != "" && arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperand2() != "") {
+            if (arithmeticOperation.hasAll()) {
 	            result = arithmeticOperation.operate().toString();
 		        arithmeticOperation.clearAll();
 		        arithmeticOperation.setOperand1(result);
