@@ -67,6 +67,10 @@ class ArithmeticOperation {
         return this.#operand2;
     }
 
+    getOperationString() {
+        return `${this.getOperand1()} ${this.getOperator()} ${this.getOperand2()}`;
+    }
+
     hasOperator() {
         return this.getOperator() != "";
     }

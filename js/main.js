@@ -118,7 +118,7 @@ function updateDisplayOnOperatorClick(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-           elementIds.display.textContent = `${arithmeticOperation.getOperand1()} ${arithmeticOperation.getOperator()} ${arithmeticOperation.getOperand2()}`;
+           elementIds.display.textContent = arithmeticOperation.getOperationString();
         });
     });    
 }
@@ -127,7 +127,7 @@ function updateDisplayOnNumberClick(elementIds, arithmeticOperation) {
     const nums = Object.values(elementIds.buttons.numbers);
     nums.forEach(num => {
         num.id.addEventListener("click", () => {
-           elementIds.display.textContent = `${arithmeticOperation.getOperand1()} ${arithmeticOperation.getOperator()} ${arithmeticOperation.getOperand2()}`;
+           elementIds.display.textContent = arithmeticOperation.getOperationString();
         });
     });    
 }
@@ -136,7 +136,7 @@ function updateDisplayOnUtilityClick(elementIds, arithmeticOperation) {
     const utility = Object.values(elementIds.buttons.utility);
     utility.forEach(util => {
         util.addEventListener("click", () => {
-           elementIds.display.textContent = `${arithmeticOperation.getOperand1()} ${arithmeticOperation.getOperator()} ${arithmeticOperation.getOperand2()}`;
+           elementIds.display.textContent = arithmeticOperation.getOperationString();
         });
     });
 }
