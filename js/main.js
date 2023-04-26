@@ -32,8 +32,10 @@ function main() {
         }
     };
     clearDisplayOnOperatorClick(elementIds, arithmeticOperation);
+    clearDisplayOnClearAllClick(elementIds);
     addNumbersToDisplay(elementIds);
     addOperatorToDisplay(elementIds, arithmeticOperation);
+    clearLogicOnClearAllClick(elementIds, arithmeticOperation);
     setOperatorOnClick(elementIds, arithmeticOperation);
     setOperandOnClick(elementIds, arithmeticOperation);
     readyNextOperationDisplay(elementIds, arithmeticOperation);
@@ -44,10 +46,16 @@ function clearDisplayOnOperatorClick(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	    if (arithmeticOperation.operator != null) {
-		elementIds.display.textContent = "";
-	    }
+	        if (arithmeticOperation.operator != null) {
+		        elementIds.display.textContent = "";
+	        }
         });
+    });
+}
+
+function clearDisplayOnClearAllClick(elementIds) {
+    elementIds.buttons.utility.clearAll.addEventListener("click", () => {
+        elementIds.display.textContent = "";
     });
 }
 
@@ -55,8 +63,14 @@ function addNumbersToDisplay(elementIds) {
     const numbers = Object.values(elementIds.buttons.numbers);
     numbers.forEach(number => {
         number.id.addEventListener("click", () => {
-	    elementIds.display.textContent += number.value;
+	        elementIds.display.textContent += number.value;
         });
+    });
+}
+
+function clearLogicOnClearAllClick(elementIds, arithmeticOperation) {
+    elementIds.buttons.utility.clearAll.addEventListener("click", () => {
+        arithmeticOperation.clearAll();
     });
 }
 
@@ -64,9 +78,9 @@ function addOperatorToDisplay(elementIds, arithmeticOperation) {
     operators = Object.values(elementIds.buttons.operators).filter(item => item !== elementIds.buttons.operators.equals);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	    if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === null) {
-	        elementIds.display.textContent += operator.value;
-	    }
+	        if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === null) {
+	            elementIds.display.textContent += operator.value;
+	        }
         });
     });
 }
@@ -75,18 +89,18 @@ function setOperatorOnClick(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
-	    if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === null) {
-		arithmeticOperation.setOperator(operator.value);
-	    }
-	});
+	        if (arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperator() === null) {
+		        arithmeticOperation.setOperator(operator.value);
+	        }
+	    });
     });
 }
 
 function setOperandOnClick(elementIds, arithmeticOperation) {
     const nums = Object.values(elementIds.buttons.numbers);
     nums.forEach(num => {
-	num.id.addEventListener("click", () => {
-	    arithmeticOperation.addCharToOperand(num.value);
+	    num.id.addEventListener("click", () => {
+	        arithmeticOperation.addCharToOperand(num.value);
         });
     });
 }
@@ -96,11 +110,11 @@ function readyNextOperationDisplay(elementIds, arithmeticOperation) {
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
             if (arithmeticOperation.getOperator() != null && arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperand2() != "") {
-	        elementIds.display.textContent = arithmeticOperation.operate();
-		if (['+','-','*','/'].includes(operator.value)) {
-		    elementIds.display.textContent += operator.value;
-		}
-	    }
+	            elementIds.display.textContent = arithmeticOperation.operate();
+		        if (['+','-','*','/'].includes(operator.value)) {
+		            elementIds.display.textContent += operator.value;
+		        }
+	        }
         });
     });    
 }
@@ -111,13 +125,13 @@ function readyNextOperationLogic(elementIds, arithmeticOperation) {
     operators.forEach(operator => {
         operator.id.addEventListener("click", () => {
             if (arithmeticOperation.getOperator() != null && arithmeticOperation.getOperand1() != "" && arithmeticOperation.getOperand2() != "") {
-	        result = arithmeticOperation.operate().toString();
-		arithmeticOperation.clearAll();
-		arithmeticOperation.setOperand1(result);
-		if (['+','-','*','/'].includes(operator.value)) {
-		    arithmeticOperation.setOperator(operator.value);
-		}
-	    }
+	            result = arithmeticOperation.operate().toString();
+		        arithmeticOperation.clearAll();
+		        arithmeticOperation.setOperand1(result);
+		        if (['+','-','*','/'].includes(operator.value)) {
+		            arithmeticOperation.setOperator(operator.value);
+		        }
+	        }
         });
     });    
 }
