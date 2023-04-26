@@ -20,13 +20,12 @@ class ArithmeticOperation {
 	    this.#operand2 = operand;
 	}
 
-    addCharToOperand(char) {
-	    if (this.#operator === "") {
-		    this.#operand1 += char;
-	    }
-	    else {
-		    this.#operand2 += char;
-	    }
+    addCharToOperand1(char) {
+		this.#operand1 += char;
+	}
+
+    addCharToOperand2(char) {
+		this.#operand2 += char;
 	}
 
     removeCharFromOperand1() {

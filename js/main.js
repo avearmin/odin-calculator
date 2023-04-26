@@ -61,7 +61,12 @@ function setOperandOnClick(elementIds, arithmeticOperation) {
     const nums = Object.values(elementIds.buttons.numbers);
     nums.forEach(num => {
 	    num.id.addEventListener("click", () => {
-	        arithmeticOperation.addCharToOperand(num.value);
+	        if (!arithmeticOperation.hasOperator()) {
+                arithmeticOperation.addCharToOperand1(num.value);
+            }
+            else {
+                arithmeticOperation.addCharToOperand2(num.value);
+            }
         });
     });
 }
