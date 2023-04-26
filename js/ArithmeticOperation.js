@@ -12,15 +12,15 @@ class ArithmeticOperation {
 	    this.#operator = operator;
 	}
 
-	setOperand1(operand) {
+    setOperand1(operand) {
 	    this.#operand1 = operand;
 	}
 
-	setOperand2(operand) {
+    setOperand2(operand) {
 	    this.#operand2 = operand;
 	}
 
-	addCharToOperand(char) {
+    addCharToOperand(char) {
 	    if (this.#operator === null) {
 		    this.#operand1 += char;
 	    }
@@ -28,6 +28,14 @@ class ArithmeticOperation {
 		    this.#operand2 += char;
 	    }
 	}
+
+    removeCharFromOperand1() {
+        this.#operand1 = this.#operand1.slice(0, -1);
+    }
+
+    removeCharFromOperand2() {
+        this.#operand2 = this.#operand2.slice(0, -1);
+    }
 
     getOperator() {
         return this.#operator;

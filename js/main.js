@@ -35,9 +35,11 @@ function main() {
     clearDisplayOnClearAllClick(elementIds);
     addNumbersToDisplay(elementIds);
     addOperatorToDisplay(elementIds, arithmeticOperation);
+    removeLastCharFromDisplay(elementIds);
     clearLogicOnClearAllClick(elementIds, arithmeticOperation);
     setOperatorOnClick(elementIds, arithmeticOperation);
     setOperandOnClick(elementIds, arithmeticOperation);
+    removeCharFromOperation(elementIds, arithmeticOperation);
     readyNextOperationDisplay(elementIds, arithmeticOperation);
     readyNextOperationLogic(elementIds, arithmeticOperation);
 }
@@ -85,6 +87,12 @@ function addOperatorToDisplay(elementIds, arithmeticOperation) {
     });
 }
 
+function removeLastCharFromDisplay(elementIds) {
+    elementIds.buttons.utility.clear.addEventListener("click", () => {
+        elementIds.display.textContent = elementIds.display.textContent.slice(0, -1);
+    });
+}
+
 function setOperatorOnClick(elementIds, arithmeticOperation) {
     const operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
     operators.forEach(operator => {
@@ -102,6 +110,20 @@ function setOperandOnClick(elementIds, arithmeticOperation) {
 	    num.id.addEventListener("click", () => {
 	        arithmeticOperation.addCharToOperand(num.value);
         });
+    });
+}
+
+function removeCharFromOperation(elementIds, arithmeticOperation) {
+    elementIds.buttons.utility.clear.addEventListener("click", () => {
+        if (arithmeticOperation.getOperand2() != "") {
+            arithmeticOperation.removeCharFromOperand2();
+        }
+        else if (arithmeticOperation.getOperator() != null) {
+            arithmeticOperation.setOperator(null);
+        }
+        else {
+            arithmeticOperation.removeCharFromOperand1();
+        }
     });
 }
 
