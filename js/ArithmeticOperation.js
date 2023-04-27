@@ -86,6 +86,14 @@ class ArithmeticOperation {
         return this.hasOperator() && this.hasOperand1() && this.hasOperand2();
     }
 
+    isOperand1DecimalFree() {
+        return !this.getOperand1().includes(".");
+    }
+
+    isOperand2DecimalFree() {
+        return !this.getOperand2().includes(".");
+    }
+
 	clearAll() {
 	    this.setOperator("");
 	    this.setOperand1("");

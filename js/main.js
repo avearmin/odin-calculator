@@ -5,6 +5,7 @@ function main() {
     clearLogicOnClearAllClick(calculatorUI, arithmeticOperation);
     setOperatorOnClick(calculatorUI, arithmeticOperation);
     setOperandOnClick(calculatorUI, arithmeticOperation);
+    addDecimalToOperandOnClick(calculatorUI, arithmeticOperation)
     toggleNegativeOnClick(calculatorUI, arithmeticOperation)
     removeCharFromOperation(calculatorUI, arithmeticOperation);
     readyNextOperationLogic(calculatorUI, arithmeticOperation);
@@ -29,7 +30,7 @@ function setOperatorOnClick(calculatorUI, arithmeticOperation) {
 }
 
 function setOperandOnClick(calculatorUI, arithmeticOperation) {
-    const nums = calculatorUI.getAllNumbers();
+    const nums = calculatorUI.getAllNumbers().filter(num => num !== calculatorUI.getDecimal());
     nums.forEach(num => {
 	    num.addEventListener("click", () => {
 	        if (!arithmeticOperation.hasOperator()) {
@@ -39,6 +40,17 @@ function setOperandOnClick(calculatorUI, arithmeticOperation) {
                 arithmeticOperation.addCharToOperand2(calculatorUI.getValueById(num));
             }
         });
+    });
+}
+
+function addDecimalToOperandOnClick(calculatorUI, arithmeticOperation) {
+    calculatorUI.getDecimal().addEventListener("click", () => {
+        if (arithmeticOperation.hasOperator() && arithmeticOperation.isOperand2DecimalFree()) {
+            arithmeticOperation.addCharToOperand2(".");
+        }
+        else if (!arithmeticOperation.hasOperand2() && arithmeticOperation.isOperand1DecimalFree()) {
+            arithmeticOperation.addCharToOperand1(".");
+        }
     });
 }
 
