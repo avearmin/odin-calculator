@@ -1,78 +1,49 @@
 function main() {
-    let arithmeticOperation = new ArithmeticOperation();
+    const arithmeticOperation = new ArithmeticOperation();
+    const calculatorUI = new CalculatorUI();
 
-    const elementIds = {
-        display: document.getElementById("display"),
-        buttons: {
-            numbers: {
-                zero: {id: document.getElementById("zero"), value: "0"},
-                one: {id: document.getElementById("one"), value: "1"},
-                two: {id: document.getElementById("two"), value: "2"},
-                three: {id: document.getElementById("three"), value: "3"},
-                four: {id: document.getElementById("four"), value: "4"},
-                five: {id: document.getElementById("five"), value: "5"},
-                six: {id: document.getElementById("six"), value: "6"},
-                seven: {id: document.getElementById("seven"), value: "7"},
-                eight: {id: document.getElementById("eight"), value: "8"},
-                nine: {id: document.getElementById("nine"), value: "9"},
-                decimal: {id: document.getElementById("decimal"), value: "."}
-            },
-            utility: {
-                clearAll: document.getElementById("clear-all"),
-                clear: document.getElementById("clear"),
-                positiveNegative: document.getElementById("positive-negative")
-            },
-            operators: {
-                equals: {id: document.getElementById("equals"), value: "="},
-                add: {id: document.getElementById("add"), value: "+"},
-                subtract: {id: document.getElementById("subtract"), value: "-"},
-                multiply: {id: document.getElementById("multiply"), value: "*"},
-                divide: {id: document.getElementById("divide"), value: "/"}
-            }
-        }
-    };
-    clearLogicOnClearAllClick(elementIds, arithmeticOperation);
-    setOperatorOnClick(elementIds, arithmeticOperation);
-    setOperandOnClick(elementIds, arithmeticOperation);
-    toggleNegativeOnClick(elementIds, arithmeticOperation)
-    removeCharFromOperation(elementIds, arithmeticOperation);
-    readyNextOperationLogic(elementIds, arithmeticOperation);
-    updateDisplay(elementIds, arithmeticOperation);
+    clearLogicOnClearAllClick(calculatorUI, arithmeticOperation);
+    setOperatorOnClick(calculatorUI, arithmeticOperation);
+    setOperandOnClick(calculatorUI, arithmeticOperation);
+    toggleNegativeOnClick(calculatorUI, arithmeticOperation)
+    removeCharFromOperation(calculatorUI, arithmeticOperation);
+    readyNextOperationLogic(calculatorUI, arithmeticOperation);
+    updateDisplay(calculatorUI, arithmeticOperation);
 }
 
-function clearLogicOnClearAllClick(elementIds, arithmeticOperation) {
-    elementIds.buttons.utility.clearAll.addEventListener("click", () => {
+function clearLogicOnClearAllClick(calculatorUI, arithmeticOperation) {
+    calculatorUI.getClearAll().addEventListener("click", () => {
         arithmeticOperation.clearAll();
     });
 }
 
-function setOperatorOnClick(elementIds, arithmeticOperation) {
-    const operators = Object.values(elementIds.buttons.operators).filter(item => item.id !== elementIds.buttons.operators.equals.id);
+function setOperatorOnClick(calculatorUI, arithmeticOperation) {
+    const operators = calculatorUI.getAllOperators().filter(operator => operator !== calculatorUI.getEquals());
     operators.forEach(operator => {
-        operator.id.addEventListener("click", () => {
+        operator.addEventListener("click", () => {
 	        if (arithmeticOperation.hasOperand1() && !arithmeticOperation.hasOperator()) {
-		        arithmeticOperation.setOperator(operator.value);
+		        arithmeticOperation.setOperator(calculatorUI.getValueById(operator));
 	        }
 	    });
     });
 }
 
-function setOperandOnClick(elementIds, arithmeticOperation) {
-    const nums = Object.values(elementIds.buttons.numbers);
+function setOperandOnClick(calculatorUI, arithmeticOperation) {
+    const nums = calculatorUI.getAllNumbers();
     nums.forEach(num => {
-	    num.id.addEventListener("click", () => {
+	    num.addEventListener("click", () => {
 	        if (!arithmeticOperation.hasOperator()) {
-                arithmeticOperation.addCharToOperand1(num.value);
+                arithmeticOperation.addCharToOperand1(calculatorUI.getValueById(num));
             }
             else {
-                arithmeticOperation.addCharToOperand2(num.value);
+                arithmeticOperation.addCharToOperand2(calculatorUI.getValueById(num));
             }
         });
     });
 }
 
-function toggleNegativeOnClick(elementIds, arithmeticOperation) {
-    elementIds.buttons.utility.positiveNegative.addEventListener("click", () => {
+function toggleNegativeOnClick(calculatorUI, arithmeticOperation) {
+    calculatorUI.getPositiveNegative().addEventListener("click", () => {
         if (arithmeticOperation.hasOperand2()) {
             arithmeticOperation.toggleNegativeOperand2();
         }
@@ -82,8 +53,8 @@ function toggleNegativeOnClick(elementIds, arithmeticOperation) {
     });
 }
 
-function removeCharFromOperation(elementIds, arithmeticOperation) {
-    elementIds.buttons.utility.clear.addEventListener("click", () => {
+function removeCharFromOperation(calculatorUI, arithmeticOperation) {
+    calculatorUI.getClear().addEventListener("click", () => {
         if (arithmeticOperation.hasOperand2()) {
             arithmeticOperation.removeCharFromOperand2();
         }
@@ -96,52 +67,51 @@ function removeCharFromOperation(elementIds, arithmeticOperation) {
     });
 }
 
-function readyNextOperationLogic(elementIds, arithmeticOperation) {
-    let result;
-    const operators = Object.values(elementIds.buttons.operators);
+function readyNextOperationLogic(calculatorUI, arithmeticOperation) {
+    const operators = calculatorUI.getAllOperators();
     operators.forEach(operator => {
-        operator.id.addEventListener("click", () => {
+        operator.addEventListener("click", () => {
             if (arithmeticOperation.hasAll()) {
-	            result = arithmeticOperation.operate().toString();
+	            let result = arithmeticOperation.operate().toString();
 		        arithmeticOperation.clearAll();
 		        arithmeticOperation.setOperand1(result);
-		        if (['+','-','*','/'].includes(operator.value)) {
-		            arithmeticOperation.setOperator(operator.value);
+		        if (['+','-','*','/'].includes(calculatorUI.getValueById(operator))) {
+		            arithmeticOperation.setOperator(calculatorUI.getValueById(operator));
 		        }
 	        }
         });
     });    
 }
 
-function updateDisplay(elementIds, arithmeticOperation) {
-    updateDisplayOnOperatorClick(elementIds, arithmeticOperation);
-    updateDisplayOnNumberClick(elementIds, arithmeticOperation);
-    updateDisplayOnUtilityClick(elementIds, arithmeticOperation);
+function updateDisplay(calculatorUI, arithmeticOperation) {
+    updateDisplayOnOperatorClick(calculatorUI, arithmeticOperation);
+    updateDisplayOnNumberClick(calculatorUI, arithmeticOperation);
+    updateDisplayOnUtilityClick(calculatorUI, arithmeticOperation);
 }
 
-function updateDisplayOnOperatorClick(elementIds, arithmeticOperation) {
-    const operators = Object.values(elementIds.buttons.operators);
+function updateDisplayOnOperatorClick(calculatorUI, arithmeticOperation) {
+    const operators = calculatorUI.getAllOperators();
     operators.forEach(operator => {
-        operator.id.addEventListener("click", () => {
-           elementIds.display.textContent = arithmeticOperation.getOperationString();
+        operator.addEventListener("click", () => {
+            calculatorUI.getDisplay().textContent = arithmeticOperation.getOperationString();
         });
     });    
 }
 
-function updateDisplayOnNumberClick(elementIds, arithmeticOperation) {
-    const nums = Object.values(elementIds.buttons.numbers);
+function updateDisplayOnNumberClick(calculatorUI, arithmeticOperation) {
+    const nums = calculatorUI.getAllNumbers();
     nums.forEach(num => {
-        num.id.addEventListener("click", () => {
-           elementIds.display.textContent = arithmeticOperation.getOperationString();
+        num.addEventListener("click", () => {
+            calculatorUI.getDisplay().textContent = arithmeticOperation.getOperationString();
         });
     });    
 }
 
-function updateDisplayOnUtilityClick(elementIds, arithmeticOperation) {
-    const utility = Object.values(elementIds.buttons.utility);
+function updateDisplayOnUtilityClick(calculatorUI, arithmeticOperation) {
+    const utility = calculatorUI.getAllUtility();
     utility.forEach(util => {
         util.addEventListener("click", () => {
-           elementIds.display.textContent = arithmeticOperation.getOperationString();
+            calculatorUI.getDisplay().textContent = arithmeticOperation.getOperationString();
         });
     });
 }
