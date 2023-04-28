@@ -63,6 +63,8 @@ button:active {
 }
 
 #display {
+    overflow-wrap: break-word;
+    overflow-y: auto;
     background-color: lightgray;
     border: inset 5px #B3DBC0;
     height: 90px;
