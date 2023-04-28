@@ -3,46 +3,55 @@
     <head>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.cdnfonts.com/css/vcr-osd-mono" rel="stylesheet">
         <title>Odin Calculator</title>
     </head>
     <body>
-        <div id="calc-container">
-            <div id="display"></div>
-            <div id="buttons-container">
-                <div id="left-buttons">
-                    <div id="utility-buttons">
-                        <button id="clear-all" class="utility">AC</button>
-                        <button id="clear" class="utility">C</button>
-                        <button id="positive-negative" class="utility">+/-</button>
-                    </div>
-                    <div id="number-buttons">
-                        <div id="buttons-7-9">
-                            <button id="seven" class="number">7</button>
-                            <button id="eight" class="number">8</button>
-                            <button id="nine" class="number">9</button>
-                        </div>
-                        <div id="buttons-4-6">
-                            <button id="four" class="number">4</button>
-                            <button id="five" class="number">5</button>
-                            <button id="six" class="number">6</button>
-                        </div>
-                        <div id="buttons-1-3">
-                            <button id="one" class="number">1</button>
-                            <button id="two" class="number">2</button>
-                            <button id="three" class="number">3</button>
-                        </div>
-                        <div id="buttons-0-decimal">
-                            <button id="zero" class="number">0</button>
-                            <button id="decimal" class="number">.</button>
-                        </div>
-                    </div>
+        <div id="content" class="flex">
+            <div id="calc-container" class="flex column">
+                <div id="display"></div>
+                <div id="info" class="flex">
+                    <p id="info-text">Calculator by AveArmin</p>
+                    <a id="git-image-link-container" class="flex" href="https://github.com/avearmin/odin-calculator">
+                        <img id="git-image" src="https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg">
+                    </a>
                 </div>
-                <div id="operator-buttons">
-                    <button id="equals" class="operator">=</button>
-                    <button id="add" class="operator">+</button>
-                    <button id="subtract" class="operator">-</button>
-                    <button id="multiply" class="operator">x</button>
-                    <button id="divide" class="operator">/</button>
+                <div id="buttons-container" class="flex">
+                    <div id="left-buttons" class="flex column">
+                        <div id="utility-buttons" class="flex">
+                            <button id="clear-all" class="utility">AC</button>
+                            <button id="clear" class="utility">C</button>
+                            <button id="positive-negative" class="utility">+/-</button>
+                        </div>
+                        <div id="number-buttons" class="flex column">
+                            <div id="buttons-7-9" class="flex">
+                                <button id="seven" class="number">7</button>
+                                <button id="eight" class="number">8</button>
+                                <button id="nine" class="number">9</button>
+                            </div>
+                            <div id="buttons-4-6" class="flex">
+                                <button id="four" class="number">4</button>
+                                <button id="five" class="number">5</button>
+                                <button id="six" class="number">6</button>
+                            </div>
+                            <div id="buttons-1-3" class="flex">
+                                <button id="one" class="number">1</button>
+                                <button id="two" class="number">2</button>
+                                <button id="three" class="number">3</button>
+                            </div>
+                            <div id="buttons-0-decimal"class=flex>
+                                <button id="zero" class="number">0</button>
+                                <button id="decimal" class="number">.</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="operator-buttons" class="flex column">
+                        <button id="equals" class="operator">=</button>
+                        <button id="add" class="operator">+</button>
+                        <button id="subtract" class="operator">-</button>
+                        <button id="multiply" class="operator">x</button>
+                        <button id="divide" class="operator">/</button>
+                    </div>
                 </div>
             </div>
         </div>

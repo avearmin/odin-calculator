@@ -1,0 +1,90 @@
+@import url('https://fonts.cdnfonts.com/css/vcr-osd-mono');
+
+body {
+    overflow: hidden;
+    font-family: 'VCR OSD Mono', sans-serif;
+}
+
+.flex {
+    display: flex;
+}
+
+.column {
+    flex-direction: column;
+}
+
+#content {
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+#calc-container {
+    background-color: #B3DBC0;
+    border: outset 5px #B3DBC0;
+    width: 340px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+#info {
+    justify-content: center;
+    gap: 10px;
+}
+
+#info-text {
+    color: black;
+}
+
+#git-image-link-container {
+    align-items: center;
+}
+
+#git-image {
+    width: 25px;
+    height: 25px;
+}
+
+button {
+    font-family: 'VCR OSD Mono', sans-serif;
+    height: 75px;
+    width: 75px;
+    border: solid 2px #708090;
+    border-radius: 50%;
+    margin: 5px;
+    box-shadow: 0 4px #999;
+}
+
+button:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
+}
+
+#display {
+    background-color: lightgray;
+    border: inset 5px #B3DBC0;
+    height: 90px;
+    width: auto;
+    padding: 10px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.number {
+    background-color: #67BACA;
+}
+
+.operator {
+    background-color: #FE0000;
+}
+
+.utility {
+    background-color: #FFB745;
+}
+
+#zero {
+    height: 75px;
+    width: 150px;
+}
