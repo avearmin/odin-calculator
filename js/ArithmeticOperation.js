@@ -75,11 +75,11 @@ class ArithmeticOperation {
     }
 
     hasOperand1() {
-        return this.getOperand1() != "" && this.getOperand1 != "-";
+        return this.getOperand1() != "" && this.getOperand1() != "-";
     }
 
     hasOperand2() {
-        return this.getOperand2() != "" && this.getOperand2 != "-";
+        return this.getOperand2() != "" && this.getOperand2() != "-";
     }
 
     hasAll() {
