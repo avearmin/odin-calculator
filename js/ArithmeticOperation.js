@@ -94,6 +94,10 @@ class ArithmeticOperation {
         return !this.getOperand2().includes(".");
     }
 
+    hasDivideByZeroError() {
+	return this.getOperator() === '/' && +this.getOperand2() == 0;
+    }
+
 	clearAll() {
 	    this.setOperator("");
 	    this.setOperand1("");

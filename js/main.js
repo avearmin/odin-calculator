@@ -83,14 +83,14 @@ function readyNextOperationLogic(calculatorUI, arithmeticOperation) {
     const operators = calculatorUI.getAllOperators();
     operators.forEach(operator => {
         operator.addEventListener("click", () => {
-            if (arithmeticOperation.hasAll()) {
-	            let result = arithmeticOperation.operate().toString();
-		        arithmeticOperation.clearAll();
-		        arithmeticOperation.setOperand1(result);
-		        if (['+','-','*','/'].includes(calculatorUI.getValueById(operator))) {
-		            arithmeticOperation.setOperator(calculatorUI.getValueById(operator));
-		        }
-	        }
+            if (arithmeticOperation.hasAll() && !arithmeticOperation.hasDivideByZeroError()) {
+	        let result = arithmeticOperation.operate().toString();
+		arithmeticOperation.clearAll();
+		arithmeticOperation.setOperand1(result);
+		if (['+','-','*','/'].includes(calculatorUI.getValueById(operator))) {
+		    arithmeticOperation.setOperator(calculatorUI.getValueById(operator));
+		}
+	    }
         });
     });    
 }
@@ -105,7 +105,12 @@ function updateDisplayOnOperatorClick(calculatorUI, arithmeticOperation) {
     const operators = calculatorUI.getAllOperators();
     operators.forEach(operator => {
         operator.addEventListener("click", () => {
-            calculatorUI.getDisplay().textContent = arithmeticOperation.getOperationString();
+	    if (arithmeticOperation.hasAll() && arithmeticOperation.hasDivideByZeroError()) {
+		calculatorUI.getDisplay().textContent = "You just tried to do something very silly!";
+	    }
+	    else {
+		calculatorUI.getDisplay().textContent = arithmeticOperation.getOperationString();
+	    }
         });
     });    
 }
